@@ -7,6 +7,15 @@ class QuotesSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        with open('resultados.html', 'w', encoding='utf-8') as f:
-            f.write(response.text)
- 
+        quotes = response.xpath('//span[@class="text" and @itemprop="text"]/text()').getall()
+        '''
+        with open('resultados.txt', 'w', encoding='utf-8') as f:
+            f.write(quotes.text)
+        '''
+
+        yield {
+            'quotes' : quotes
+        }
+        
+        
+       
